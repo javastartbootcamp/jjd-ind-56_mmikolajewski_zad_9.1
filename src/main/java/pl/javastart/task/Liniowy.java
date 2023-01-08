@@ -5,8 +5,8 @@ public class Liniowy extends FormaOpodatkowania {
     private static final double LINIONA_STAWKA_PODATKU = 0.19;
 
     @Override
-    public double wyliczPodatek(double dochody) {
-        if (dochody <= KWOTA_WOLNA_OD_PODATKU) {
+    public double wyliczPodatek(double przychody, double dochody) {
+        if (dochody <= KWOTA_1_PROG) {
             return 0;
         }
         double dochodMinusKwotaWolna = dochody - KWOTA_1_PROG;

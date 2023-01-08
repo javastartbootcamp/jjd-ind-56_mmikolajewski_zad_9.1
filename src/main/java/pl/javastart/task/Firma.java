@@ -27,11 +27,7 @@ public class Firma {
         System.out.printf("Forma opodatkowania: %s\n", "TODO");
         System.out.printf("Suma przychodów: %.2f zł\n", sumaPrzychodow);
         System.out.printf("Suma wydatków: %.2f zł\n", zsumujWydatki());
-        if (formaOpodatkowania instanceof RyczaltEwidencjonowany) {
-            System.out.printf("Podatek do zapłacenia: %.2f zł", formaOpodatkowania.wyliczPodatek(sumaPrzychodow));
-        } else {
-            System.out.printf("Podatek do zapłacenia: %.2f zł", formaOpodatkowania.wyliczPodatek(dochody));
-        }
+        System.out.printf("Podatek do zapłacenia: %.2f zł", formaOpodatkowania.wyliczPodatek(sumaPrzychodow, dochody));
         System.out.print("\n\n");
     }
 
@@ -72,13 +68,13 @@ public class Firma {
 
     private void sprawdzZapelnienieTablicyPrzychodow() {
         if (iloscZaksiegowanychPrzychodow == przychody.length) {
-            Arrays.copyOf(przychody, przychody.length * 2);
+            przychody = Arrays.copyOf(przychody, przychody.length * 2);
         }
     }
 
     private void sprawdzZapelnienieTablicyWydatkow() {
         if (iloscZaksiegowanychWydatkow == wydatki.length) {
-            Arrays.copyOf(wydatki, wydatki.length * 2);
+            wydatki = Arrays.copyOf(wydatki, wydatki.length * 2);
         }
     }
 }
