@@ -16,6 +16,15 @@ public class Main {
         janNowakServices.dodajWydatek("Energetyki", 200);
 
         janNowakServices.wyswietlPodsumowanie();
+
+        Firma gumisiePrzetwornia = new Firma("Gumisie, wytwórnia rozkoszy", new WedlugSkaliPodatkowej());
+
+        gumisiePrzetwornia.dodajPrzychod("sok z gumijagów", 100_000);
+        gumisiePrzetwornia.dodajPrzychod("dropsy z gumijagód", 50_000);
+        gumisiePrzetwornia.dodajWydatek("jagody", 10_000);
+        gumisiePrzetwornia.dodajWydatek("magiczny proszek", 10_000);
+
+        gumisiePrzetwornia.wyswietlPodsumowanie();
     }
 
 }

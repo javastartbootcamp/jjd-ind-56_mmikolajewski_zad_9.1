@@ -1,9 +1,17 @@
 package pl.javastart.task;
 
+import java.util.Arrays;
+
 public class Firma {
 
     private String nazwa;
     private FormaOpodatkowania formaOpodatkowania;
+
+    private int iloscZaksiegowanychPrzychodow = 0;
+    private int iloscZaksiegowanychWydatkow = 0;
+
+    private Przychod[] przychody = new Przychod[10];
+    private Wydatek[] wydatki = new Wydatek[10];
 
     public Firma(String nazwa, FormaOpodatkowania formaOpodatkowania) {
         this.nazwa = nazwa;
@@ -12,28 +20,61 @@ public class Firma {
 
     public void wyswietlPodsumowanie() {
         double sumaPrzychodow = zsumujPrzychody();
+        double sumaWydatkow = zsumujWydatki();
+        double dochody = sumaPrzychodow - sumaWydatkow;
 
         System.out.printf("======= Firma: %s ===========\n", nazwa);
         System.out.printf("Forma opodatkowania: %s\n", "TODO");
         System.out.printf("Suma przychodów: %.2f zł\n", sumaPrzychodow);
         System.out.printf("Suma wydatków: %.2f zł\n", zsumujWydatki());
-        System.out.printf("Podatek do zapłacenia: %.2f zł", formaOpodatkowania.wyliczPodatek(sumaPrzychodow));
+        System.out.printf("Podatek do zapłacenia: %.2f zł", formaOpodatkowania.wyliczPodatek(sumaPrzychodow, dochody));
         System.out.print("\n\n");
     }
 
     private double zsumujWydatki() {
-        return 0;
+        double sumaWydatkow = 0;
+        for (Wydatek wydatek : wydatki) {
+            if (wydatek != null) {
+                sumaWydatkow += wydatek.getKwota();
+            }
+        }
+
+        return sumaWydatkow;
     }
 
     private double zsumujPrzychody() {
-        return 0;
+        double sumaPrzychodow = 0;
+        for (Przychod przychod : przychody) {
+            if (przychod != null) {
+                sumaPrzychodow += przychod.getKwota();
+            }
+        }
+        return sumaPrzychodow;
     }
 
     public void dodajPrzychod(String nazwa, double wartosc) {
+        sprawdzZapelnienieTablicyPrzychodow();
+        przychody[iloscZaksiegowanychPrzychodow] = new Przychod(nazwa, wartosc);
+        iloscZaksiegowanychPrzychodow++;
         // TODO
     }
 
     public void dodajWydatek(String nazwa, double wartosc) {
+        sprawdzZapelnienieTablicyWydatkow();
+        wydatki[iloscZaksiegowanychWydatkow] = new Wydatek(nazwa, wartosc);
+        iloscZaksiegowanychWydatkow++;
         // TODO
+    }
+
+    private void sprawdzZapelnienieTablicyPrzychodow() {
+        if (iloscZaksiegowanychPrzychodow == przychody.length) {
+            przychody = Arrays.copyOf(przychody, przychody.length * 2);
+        }
+    }
+
+    private void sprawdzZapelnienieTablicyWydatkow() {
+        if (iloscZaksiegowanychWydatkow == wydatki.length) {
+            wydatki = Arrays.copyOf(wydatki, wydatki.length * 2);
+        }
     }
 }
